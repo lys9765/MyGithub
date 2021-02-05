@@ -37,7 +37,9 @@ public class CalendarSwing extends JPanel implements ItemListener, ActionListene
 		int year;													
 		int month;	
 		int toDay;
-		public CalendarSwing() {									
+		public CalendarSwing() {		
+		titlePane.setBackground(Color.WHITE);
+		dayPane.setBackground(Color.GRAY);
 											
 		setLayout(new BorderLayout());
 		date = Calendar.getInstance();	
@@ -45,7 +47,7 @@ public class CalendarSwing extends JPanel implements ItemListener, ActionListene
 		month = date.get(Calendar.MONTH) + 1;
 		toDay = date.get(Calendar.DATE);
 		//상단
-		selectPane.setBackground(Color.white);			
+		selectPane.setBackground(Color.WHITE);			
 		selectPane.add(prevBtn); prevBtn.setFont(fnt);				
 		selectPane.add(yearCombo); yearCombo.setFont(fnt);			
 		selectPane.add(yearLbl); yearLbl.setFont(fnt);				

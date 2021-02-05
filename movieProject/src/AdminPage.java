@@ -41,7 +41,7 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 			
 		JTable table;
 			JScrollPane sp;
-			DefaultTableModel model;
+			static DefaultTableModel model;
 				String[] modelStr = {"영화 명","평점","예매 수","매출"};
 		JPanel southPane = new JPanel();
 			JLabel maxSal = new JLabel("기간 총 매출액 : 0원");
@@ -66,14 +66,21 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 				DefaultTableModel movieModel;
 				
 			JPanel searchPane = new JPanel();
-				JTextField movieSearchTf = new JTextField(20);
-				JButton movieSearchBtn = new JButton("검색");
+				JTextField searchTf = new JTextField(20);
+				JButton searchBtn = new JButton("검색");
 
 	Font ft = new Font("맑은 고딕",Font.BOLD,15);
 	String str;
+	
+	MemberAdmin memAd = new MemberAdmin(tf, searchTf);
 
 	public AdminPage() {
 		add("North", northPane);
+		northPane.setBackground(Color.BLACK);
+		dayMainPane.setBackground(Color.BLACK);
+		dayLbl.setForeground(Color.WHITE);
+		Lbl.setForeground(Color.WHITE);
+		
 		
 		setBtn(); 				//버튼 세팅
 		
@@ -116,8 +123,8 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 		box1.addItemListener(this);
 		box2.addItemListener(this);
 		
-		movieSearchTf.addActionListener(this);
-		movieSearchBtn.addActionListener(this);
+		searchTf.addActionListener(this);
+		searchBtn.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent ae) {
 		String btn = ae.getActionCommand();
@@ -142,30 +149,77 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 			str = "회원 관리";
 			movieSet(setLbl = new String[] {"회원_id","회원_pwd","회원명","연락처","이메일","생년월일","성별","등록일"}
 			, str);
+			memAd.getMemberAll();
 		}else if(btn.equals("상영관 관리")) {
 			paneOff();	
 			str = "상영관 관리";
 			movieSet(setLbl = new String[] {"","",""}
 			, str);
-		}else if(btn.equals("전체목록") && str.equals("영화 관리")) {
-			getMovieAll();
-		
-		}else if(btn.equals("추가") && str.equals("영화 관리")) {
-				setMovie();
-		}else if(btn.equals("수정") && str.equals("영화 관리")) {
-				setMovieUpdate();
-		}else if(btn.equals("삭제") && str.equals("영화 관리")) {
-				setMovieDelete();
 		}else if(btn.equals("지우기")) {
 			setFormClear();
-		}else if(btn.equals("검색") || obj==movieSearchTf){
-			movieSearch();
+		}else if(str.equals("영화 관리")) {
+			if(btn.equals("전체목록")){
+				getMovieAll();
+			}else if(btn.equals("추가")) {
+				setMovie();
+			}else if(btn.equals("수정")) {
+				setMovieUpdate();
+			}else if(btn.equals("삭제")) {
+				setMovieDelete();
+			}else if(btn.equals("검색") || obj==searchTf ) {
+				movieSearch();
+			}
+		}else if(str.equals("회원 관리")) {
+			String message = "";
+			if(btn.equals("전체목록")) {
+				memAd.getMemberAll();
+			}else if(btn.equals("추가")) {
+				if(checkText()) {
+					JOptionPane.showMessageDialog(this, "이메일과 등록일을 제외한 정보는 반드시 입력해야합니다");
+				}else {
+					message = memAd.setMember();			
+					JOptionPane.showMessageDialog(this, message);
+				}
+			}else if(btn.equals("수정")) {
+				if(checkText()) {
+					JOptionPane.showMessageDialog(this, "이메일과 등록일을 제외한 정보는 반드시 입력해야합니다");
+				}else {
+					message = memAd.setMemberUpdate();
+					JOptionPane.showMessageDialog(this, message);
+				}
+			}else if(btn.equals("삭제")) {
+				message = memAd.setMemberDelete();
+				JOptionPane.showMessageDialog(this, message);
+			}else if(btn.equals("검색")) {
+				String text = searchTf.getText();
+				if(text.equals("")) {
+					JOptionPane.showMessageDialog(this, "검색어를 입력해주세요.");
+				}else {
+					boolean searchCheck = memAd.memberSearch();
+					if(searchCheck) {
+						JOptionPane.showMessageDialog(this, text+"의 검색결과가 없습니다.");
+					}
+					
+				}
+			}
+		}else if(str.equals("상영 관리")) {
+			
 		}
-		
+			
 
 	}
-	public void movieSearch() {
-		String searchWord = movieSearchTf.getText();
+	public boolean checkText() {
+		if(tf[0].getText().equals("") || tf[1].getText().equals("") || tf[2].getText().equals("") ||
+				tf[3].getText().equals("") || tf[5].getText().equals("") || tf[6].getText().equals("")) {
+			
+			return true;
+		}else {
+			return false;
+		}
+	
+	}
+	public void movieSearch() {		
+		String searchWord = searchTf.getText();
 		if(searchWord.equals("")) {
 			JOptionPane.showMessageDialog(this, "검색어를 입력해주세요.");
 		}else {
@@ -176,20 +230,24 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 			}else {
 				setNewTableList(searchList);
 			}
-			movieSearchTf.setText("");
+			searchTf.setText("");
 		}
 	}
 	public void setMovieDelete() {
-		int num = Integer.parseInt(tf[0].getText());
-		MovieDAO dao = new MovieDAO();
-		int result = dao.movieDelete(num);
-		if(result > 0) {
-			getMovieAll();
-			JOptionPane.showMessageDialog(this, "영화정보가 삭제되었습니다.");
+		if(tf[0].getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "영화코드는 반드시 입력하여야 합니다.");
 		}else {
-			JOptionPane.showMessageDialog(this, "영화정보 삭제를 실패했습니다.");
+			int num = Integer.parseInt(tf[0].getText());
+			MovieDAO dao = new MovieDAO();
+			int result = dao.movieDelete(num);
+			if(result > 0) {
+				getMovieAll();
+				JOptionPane.showMessageDialog(this, "영화정보가 삭제되었습니다.");
+			}else {
+				JOptionPane.showMessageDialog(this, "영화정보 삭제를 실패했습니다.");
+			}
+			setFormClear();
 		}
-		setFormClear();
 	}
 	public void itemStateChanged(ItemEvent ie) {
 		if(ie.getStateChange()==1) {
@@ -313,9 +371,9 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 		
 		
 		movieCenterPane.add("South", searchPane);//센터패널 하단
-			searchPane.add(movieSearchTf);
-			searchPane.add(movieSearchBtn);
-			movieSearchBtn.setFont(ft);
+			searchPane.add(searchTf);
+			searchPane.add(searchBtn);
+			searchBtn.setFont(ft);
 			
 		
 		moviePane.setVisible(true);

@@ -18,8 +18,8 @@ public class DBConn {
 	
 	String sql = null;
 	
-//	String url = "jdbc:oracle:thin:@192.168.200.115:1521:xe";
-	String url = "jdbc:oracle:thin:@192.168.0.39:1521:xe";
+	String url = "jdbc:oracle:thin:@192.168.200.115:1521:xe";
+//	String url = "jdbc:oracle:thin:@192.168.0.39:1521:xe";
 	String username = "c##scott";
 	String userpwd = "tiger";
 	
