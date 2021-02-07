@@ -66,9 +66,11 @@ public class MyPage extends JFrame implements ActionListener{
 			ta4.setText(vo.getSummary());		// 영화의 줄거리를 세팅한다
 		}else if(obj == btn2) {
 			MemberDAO dao = new MemberDAO();
+			PointDAO pDao = new PointDAO();
 			MemberVO vo = dao.getMemberData("cat", "5555");
+			PointVO pVo = pDao.getPointData(vo.getMbrID());
 			ta1.setText(vo.getMbrID()+"\n"+vo.getPwd());
-			ta2.setText(dao.getMemberPoint(vo));
+			ta2.setText(String.valueOf(pVo.getMbrID()));
 		}else if(obj == btn3) {
 			
 		}

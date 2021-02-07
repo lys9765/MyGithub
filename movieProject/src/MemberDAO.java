@@ -172,8 +172,8 @@ public class MemberDAO extends DBConn {
 		}
 		return vo;
 	}
-	public String getMemberPoint(MemberVO vo) {
-		String point = "";
+	public int getMemberPoint(MemberVO vo) {
+		int point =0;
 		try {
 			getConn();
 			sql = "select memTbl.mbrid, point from memTbl join pointTbl on memTbl.mbrid = pointTbl.mbrid where memTbl.mbrid=? ";
@@ -182,7 +182,7 @@ public class MemberDAO extends DBConn {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				
-				point = rs.getString(2);
+				point = rs.getInt(2);
 			}
 			
 		}catch(Exception e) {

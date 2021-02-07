@@ -97,9 +97,9 @@ public String setMemberDelete() {
 		
 		return vo;
 	}
-	public String setMemberPoint(MemberVO vo) {
+	public int setMemberPoint(MemberVO vo) {
 		MemberDAO dao = new MemberDAO();
-		String point = dao.getMemberPoint(vo);
+		int point = dao.getMemberPoint(vo);
 		
 		return point;
 	}
