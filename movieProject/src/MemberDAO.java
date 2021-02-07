@@ -176,7 +176,7 @@ public class MemberDAO extends DBConn {
 		String point = "";
 		try {
 			getConn();
-			sql = "select mbrid, point from memTbl join pointTbl on mbrid where mbrid=? ";
+			sql = "select memTbl.mbrid, point from memTbl join pointTbl on memTbl.mbrid = pointTbl.mbrid where memTbl.mbrid=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMbrID());
 			rs = pstmt.executeQuery();

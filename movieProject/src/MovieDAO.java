@@ -143,19 +143,6 @@ public class MovieDAO extends DBConn {
 		}
 		return result;
 	}
-	public void selectMovie() {
-		try {
-			getConn();
-			sql = "";
-			pstmt = conn.prepareStatement(sql);
-			
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			dbClose();
-		}
-	}
 	public MovieVO setMovieData(int moviecode) {
 		MovieVO vo = new MovieVO();
 		try {

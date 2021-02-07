@@ -2,6 +2,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-public class MyPage extends JFrame{
+public class MyPage extends JFrame implements ActionListener{
 	JPanel mainPane = new JPanel();
 			
 			JLabel lbl1 = new JLabel("     등급별 선정 기준 및 혜택 안내");
@@ -50,6 +52,26 @@ public class MyPage extends JFrame{
 		setSize(1000,700);
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		btn1.addActionListener(this);
+		btn2.addActionListener(this);
+		btn3.addActionListener(this);
+		
+	}
+	public void actionPerformed(ActionEvent ae) {	
+		Object obj = ae.getSource();
+		if(obj == btn1) {						// dao 테스트용
+			MovieDAO dao = new MovieDAO();
+			MovieVO vo = dao.setMovieData(12);	// 영화 코드번호를 보내서 해당 영화의 vo값을 가져온다
+			ta4.setText(vo.getSummary());		// 영화의 줄거리를 세팅한다
+		}else if(obj == btn2) {
+			MemberDAO dao = new MemberDAO();
+			MemberVO vo = dao.getMemberData("cat", "5555");
+			ta1.setText(vo.getMbrID()+"\n"+vo.getPwd());
+			ta2.setText(dao.getMemberPoint(vo));
+		}else if(obj == btn3) {
+			
+		}
 	}
 	public void setText() {
 		ta1.append("JTextArea");
@@ -84,13 +106,21 @@ public class MyPage extends JFrame{
 		LineBorder lineBorder = new LineBorder(Color.WHITE);
 		TitledBorder tBorder = new TitledBorder(lineBorder, "",
 				TitledBorder.CENTER, TitledBorder.CENTER);
+		
+		LineBorder lineBorder2 = new LineBorder(Color.RED);
+		TitledBorder tBorder2 = new TitledBorder(lineBorder2, "",
+				TitledBorder.CENTER, TitledBorder.CENTER);
+		
 		lbl1.setBorder(tBorder);
 		lbl2.setBorder(tBorder);
 		lbl3.setBorder(tBorder);
 		lbl4.setBorder(tBorder);
 		
-		ta1.setBorder(tBorder);
-		ta2.setBorder(tBorder);
+		ta1.setBorder(tBorder2);
+		ta2.setBorder(tBorder2);
+		ta3.setBorder(tBorder2);
+		ta4.setBorder(tBorder2);
+		
 	}
 	public void setBackground() {
 		mainPane.setBackground(Color.BLACK);
@@ -111,7 +141,7 @@ public class MyPage extends JFrame{
 		lbl3.setForeground(Color.WHITE);
 		lbl4.setForeground(Color.WHITE);
 		
-		
+//		ta3.setForeground(Color.red);
 	}
 	public void setFont() {
 		lbl1.setFont(tf);
@@ -125,7 +155,7 @@ public class MyPage extends JFrame{
 		
 		ta1.setFont(tf);
 		ta2.setFont(tf);
-		ta3.setFont(new Font("맑은 고딕",Font.BOLD,12));
+		ta3.setFont(new Font("맑은 고딕",Font.BOLD,14));
 	}
 	public void setBounds() {
 		lbl1.setBounds(50,50,395,70);
