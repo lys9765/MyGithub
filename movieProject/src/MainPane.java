@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -53,7 +54,26 @@ public class MainPane extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-
+//	public void login() {
+//		String idText = idTf.getText();
+//		String pwText = String.valueOf(pwPf.getPassword());
+//		if(idText.equals("") || pwText.equals("")) {
+//			JOptionPane.showMessageDialog(this, "아이디와 패스워드를 입력해주세요.");
+//		}else {
+//			MemberDAO dao = new MemberDAO();
+//			MemberVO vo = dao.getMemberData(idText, pwText);
+//			if(vo.getMbrID()==null) {
+//				//가져온 id값이 없을 경우
+//				JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 확인해주세요.");
+//				
+//			}else {
+//				//로그인 성공시
+//				MainPane.tp.setEnabledAt(5, false);
+//				MainPane.tp.setSelectedIndex(4);
+//			}
+//		}
+//		
+//	}
 	public static void main(String[] args) {
 		new MainPane();
 	}

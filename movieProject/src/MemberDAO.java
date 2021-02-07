@@ -73,7 +73,7 @@ public class MemberDAO extends DBConn {
 		
 		return lst;
 	}
-	
+
 	//회원 등록
 	public int memberInsert(MemberVO vo) {
 		int result = 0;
@@ -143,11 +143,26 @@ public class MemberDAO extends DBConn {
 		}
 		return result;
 	}
-	public void selectMember() {
+	public MemberVO getMemberData(String mbrid, String pwd) {
+		MemberVO vo = new MemberVO();
 		try {
 			getConn();
-			sql = "";
+			sql = "select mbrid, pwd, name, tel, email, birth, gender , rgtrdate "
+					+ "from memTbl where mbrid=? and pwd=?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mbrid);
+			pstmt.setString(2, pwd);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo.setMbrID(rs.getString(1));
+				vo.setPwd(rs.getString(2));
+				vo.setName(rs.getString(3));
+				vo.setTel(rs.getString(4));
+				vo.setEmail(rs.getString(5));
+				vo.setBirth(rs.getString(6));
+				vo.setGender(rs.getInt(7));
+				vo.setRgtrdate(rs.getString(8));
+			}
 			
 			
 		}catch(Exception e) {
@@ -155,6 +170,27 @@ public class MemberDAO extends DBConn {
 		}finally {
 			dbClose();
 		}
+		return vo;
+	}
+	public String getMemberPoint(MemberVO vo) {
+		String point = "";
+		try {
+			getConn();
+			sql = "select mbrid, point from memTbl join pointTbl on mbrid where mbrid=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMbrID());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				point = rs.getString(2);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return point;
 	}
 }
 

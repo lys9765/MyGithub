@@ -43,7 +43,7 @@ public class MovieDAO extends DBConn {
 			getConn();
 			sql = "select moviecode, moviename, director, jenrecode, releasedate, mrating, rtime , summary, rgtrdate "
 					//								
-					+ " from movieTbl where moviename like ? order by moviename asc";
+					+ " from movieTbl where moviename like ? order by moviecode asc";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1,"%"+searchWord+"%");
@@ -155,5 +155,30 @@ public class MovieDAO extends DBConn {
 		}finally {
 			dbClose();
 		}
+	}
+	public MovieVO setMovieData(int moviecode) {
+		MovieVO vo = new MovieVO();
+		try {
+			getConn();
+			sql = "select moviecode, moviename, director, jenrecode, releasedate, rtime, summary "
+					+ "from movieTbl where moviecode=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, moviecode);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo.setMovieCode(rs.getInt(1));
+				vo.setMovieName(rs.getString(2));
+				vo.setDirectorName(rs.getString(3));
+				vo.setJenreCode(rs.getInt(4));
+				vo.setReleaseDate(rs.getString(5));
+				vo.setRtime(rs.getString(6));
+				vo.setSummary(rs.getString(7));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return vo;
 	}
 }

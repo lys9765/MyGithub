@@ -80,6 +80,9 @@ public class AdminPage extends JFrame implements ActionListener, ItemListener{
 		dayMainPane.setBackground(Color.BLACK);
 		dayLbl.setForeground(Color.WHITE);
 		Lbl.setForeground(Color.WHITE);
+		southPane.setBackground(Color.BLACK);
+		maxSal.setForeground(Color.WHITE);
+		searchPane.setBackground(Color.BLACK);
 		
 		
 		setBtn(); 				//버튼 세팅

@@ -89,5 +89,19 @@ public String setMemberDelete() {
 		return check;
 		
 	}
+	public MemberVO setMemberData() {
+		String mbrid = "";
+		String pwe = "";
+		MemberDAO dao = new MemberDAO();
+		MemberVO vo = dao.getMemberData(mbrid, pwe);
+		
+		return vo;
+	}
+	public String setMemberPoint(MemberVO vo) {
+		MemberDAO dao = new MemberDAO();
+		String point = dao.getMemberPoint(vo);
+		
+		return point;
+	}
 	
 }
