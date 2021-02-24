@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>List Layout</title>
+<link rel="stylesheet" href="style.css" type="text/css"/>
+<style>
+	table{ 
+		border-color:rgb(232,232,232);
+		font-size:12px;	
+		
+	}
+	#tr3{
+		text-align:left; 
+	}
+	#tr1, #tr2{
+		background-color:rgb(251,251,251); 
+		height:100px;
+		text-align:left; 
+		
+	}
+	#text5, #text6, #text7{ 
+		font-weight:900;
+		color:black;
+		margin:10px; 
+	} 
+	#text5_1, #text6_1, #text7_1{
+		font-weight:lighter; 
+		color:rgb(150,150,150);
+		margin:10px;   
+		 
+	} 
+	ol{font-weight:900; color:lightblue; font-size:15px; text-align:left;
+		padding-right:15px;
+		
+	} 
+	span{font-size:11px; color:black;}  
+	tr>td>ol:nth-child(2){
+		color:black;
+	} 
+  	#t1, #t2, #t3, #t4{font-size:8px; color:black; font-weight:normal; }
+  	
+	   
+</style> 
+</head>
+<body> 
+<table id="table" border="1" cellspacing="18" cellpadding="0px" width="600px" height="520px">
+	<tr id="tr1">
+		<td>
+			<ol type="A" start="17">
+				<li><span>영화에서 러시안인이 주로 악당으로...</span></li>
+			</ol>
+			<ol type="A">
+				<li><span id="t1">냉전시대의 산물입니다. 러시아는 미국의 오랜 숙명의 라이벌이기도 하구요...</span></li>
+			</ol>
+		</td>
+		<td>
+			<ol type="A" start="17">
+				<li><span>'독도'이름의 유래를 알려주세요.</span></li>
+			</ol>
+			<ol type="A">
+				<li><span id="t2">독도와 관련된 명칭은 시대에 따라 문헌에 아주 다양하게 나옵니다. 조선...</span></li>
+			</ol>
+		</td>
+		<td rowspan="2"><a href=""><img src="tab2_1.png"/></a></td>
+	</tr>
+	<tr id="tr2">
+		<td>
+		<ol type="A" start="17">
+				<li><span>매실청은 당뇨환자에게 해로운가요?</span></li>
+			</ol>
+			<ol type="A">
+				<li><span id="t3">매실청은 설탕으로 매실을 발표시킨 식품으로 당분이 많이 함유되어 있습니...</span></li>
+			</ol>
+		
+		</td>
+		<td>
+		<ol type="A" start="17">
+				<li><span>108배가 다이어트에 도움이 되나요?</span></li>
+			</ol>
+			<ol type="A">
+				<li><span id="t4">108배를 하면 땀도 굉장히 많이 나고 전신운동이 되기 때문에 운동 효...</span></li>
+			</ol>
+		</td>
+	</tr>
+	<tr id="tr3">
+		<td><a href=""><img src="tab2_2.png"/>
+		<span id="text5">
+		견과류의 하루 적정 섭취량
+		</span>
+		<span id="text5_1">
+		견과류
+		</span>
+		</a></td>
+		<td><a href=""><img src="tab2_3.png"/>
+		<span id="text6">
+		날벌레가 빛에 몰려드는 이유<br/>
+		</span>
+		<span id="text6_1">
+		곤충
+		</span>
+		</a></td>
+		<td><a href=""><img src="tab2_4.png"/>
+		<span id="text7">
+		냉면의 유래와 역사<br/>	
+		</span>
+		<span id="text7_1">
+		음식
+		</span>
+		</a></td>
+	</tr>
+	
+	
+
+
+
+
+
+</table>
+</body>
+</html>
