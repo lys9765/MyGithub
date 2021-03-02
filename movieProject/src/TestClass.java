@@ -3,6 +3,43 @@ public class TestClass {
 
 	public TestClass() {
 		System.out.println("test");
+		System.out.println("tstsasdsadsas");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		System.out.println("testtttttttt");
+		
+		
+		
+		
 		
 	}
 
